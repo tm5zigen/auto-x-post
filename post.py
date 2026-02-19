@@ -9,6 +9,18 @@ client_ai = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 HISTORY_FILE = "history.txt"
 MAX_HISTORY = 50
 
+# =========================
+# ランダムテーマ
+# =========================
+themes = [
+    "AI副業",
+    "時間管理",
+    "お金の知識",
+    "自動化",
+    "フリーランス",
+    "ChatGPT活用術",
+    "個人で稼ぐ方法"
+]
 
 def load_history():
     if not os.path.exists(HISTORY_FILE):
@@ -28,18 +40,21 @@ def save_history(text):
 
 
 def generate_text(previous_posts):
+    theme = random.choice(themes)
     history_text = "\n".join(previous_posts[-5:])
-
     prompt = f"""
-短く自然な日本語の独り言を1つ生成してください。
+あなたはフォロワー1万人のX運用者です。
+インプレッションが伸びやすい投稿を1つ作ってください。
 
-条件：
-・20〜40文字
-・人間っぽい
-・説明口調にしない
-・ポジティブすぎない
-・SNS向け
-・過去の文章と似た表現を使わない
+【条件】
+・140文字以内
+・結論を最初に書く
+・少し煽り要素を入れる
+・保存したくなる内容
+・改行を使う
+・絵文字は2個まで
+
+テーマ：{theme}
 
 過去の投稿例：
 {history_text}
@@ -77,7 +92,7 @@ def main():
         if text not in history:
             break
 
-    final_text = f"{text}\n\n🕒 {datetime.now().strftime('%H:%M')}"
+    final_text = f"{text}"
 
     post_to_x(final_text)
     save_history(text)
