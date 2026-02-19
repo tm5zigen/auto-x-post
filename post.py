@@ -63,7 +63,7 @@ def post_to_x(text):
         os.environ["API_KEY"],
         os.environ["API_SECRET"],
         os.environ["ACCESS_TOKEN"],
-        os.environ["ACCESS_SECRET"],
+        os.environ["ACCESS_TOKEN_SECRET"],
     )
 
     api = tweepy.API(auth)
