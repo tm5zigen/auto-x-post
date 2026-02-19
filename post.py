@@ -1,5 +1,6 @@
 import os
 import tweepy
+import random
 from openai import OpenAI
 from datetime import datetime
 
