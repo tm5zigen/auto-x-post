@@ -59,15 +59,14 @@ def generate_text(previous_posts):
 
 
 def post_to_x(text):
-    auth = tweepy.OAuth1UserHandler(
-        os.environ["API_KEY"],
-        os.environ["API_SECRET"],
-        os.environ["ACCESS_TOKEN"],
-        os.environ["ACCESS_TOKEN_SECRET"],
+    client = tweepy.Client(
+        consumer_key=os.environ["API_KEY"],
+        consumer_secret=os.environ["API_SECRET"],
+        access_token=os.environ["ACCESS_TOKEN"],
+        access_token_secret=os.environ["ACCESS_SECRET"],
     )
 
-    api = tweepy.API(auth)
-    api.update_status(text)
+    client.create_tweet(text=text)
 
 
 def main():
